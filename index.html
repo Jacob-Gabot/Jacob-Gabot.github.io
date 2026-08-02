@@ -21,14 +21,14 @@
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
   a { color: var(--link); text-decoration: none; }
   a:hover { text-decoration: underline; }
 
-  .container { max-width: 800px; margin: 0 auto; padding: 60px 24px 80px; }
+  .container { max-width: 960px; margin: 0 auto; padding: 60px 24px 80px; }
 
   header {
     text-align: center; padding-bottom: 48px;
@@ -66,9 +66,33 @@
   .project-card .pj-title { font-size: 1.05rem; font-weight: 600; color: var(--accent); margin-bottom: 4px; }
   .project-card .pj-meta { font-size: 0.8rem; color: var(--muted); margin-bottom: 10px; }
   .project-card .pj-desc { font-size: 0.9rem; color: var(--text); line-height: 1.5; margin-bottom: 12px; }
-  .project-card .pj-links { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+  .project-card .pj-links { display: flex; gap: 12px; flex-wrap: wrap; }
   .project-card .pj-links a { font-size: 0.85rem; color: var(--link); }
   .project-card .pj-links a i { margin-right: 4px; }
+
+  /* Projects: full-width media below text */
+  .project-card > .project-media { margin-top: 14px; }
+  .project-card > .project-media img,
+  .project-card > .project-media video {
+    width: 100%; border-radius: 8px; cursor: pointer;
+    border: 1px solid var(--border); display: block;
+  }
+
+  /* Blog: horizontal row (image left, text right) */
+  .project-row { display: flex; gap: 20px; align-items: flex-start; }
+  .project-row .project-media { flex: 0 0 220px; margin-top: 0; }
+  .project-row .project-media img,
+  .project-row .project-media video {
+    width: 100%; border-radius: 8px; cursor: pointer;
+    border: 1px solid var(--border); display: block;
+  }
+  .project-row .project-media img:hover,
+  .project-row .project-media video:hover { transform: scale(1.02); }
+  .project-content { flex: 1; min-width: 0; }
+  @media (max-width: 600px) {
+    .project-row { flex-direction: column; }
+    .project-row .project-media { flex: 0 0 auto; max-width: 100%; }
+  }
 
   .media-grid {
     display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -141,10 +165,10 @@
     <h1>Jacob Guo</h1>
     <p class="subtitle">Robotics Researcher &mdash; Agricultural Robotics &amp; Neural Interfaces</p>
     <div class="links">
-      <a href="mailto:jacob.guo@example.com"><i class="fa-solid fa-envelope"></i>jacob.guo@example.com</a>
-      <a href="https://github.com/Jacob-Gabot" target="_blank"><i class="fa-brands fa-github"></i>GitHub</a>
-      <a href="https://linkedin.com/in/jacob-guo" target="_blank"><i class="fa-brands fa-linkedin"></i>LinkedIn</a>
-      <a href="media/cv.pdf" target="_blank"><i class="fa-solid fa-file-pdf"></i>Download CV</a>
+      <a href="mailto:jacob.guo@example.com"><i class="fa-solid fa-envelope"></i>jacob.guoao@163.com</a>
+      <a href="https://github.com/Jacob-Gabot" target="https://github.com/Jacob-Gabot?tab=repositories"><i class="fa-brands fa-github"></i>GitHub</a>
+      <!-- <a href="https://linkedin.com/in/jacob-guo" target="_blank"><i class="fa-brands fa-linkedin"></i>LinkedIn</a> -->
+      <!-- <a href="media/cv.pdf" target="_blank"><i class="fa-solid fa-file-pdf"></i>Download CV</a> -->
     </div>
   </header>
 
@@ -152,11 +176,24 @@
   <section>
     <div class="section-title">About</div>
     <p class="about-text">
-      Robotics researcher with 3+ years of hands-on experience in agricultural automation,
-      neural interface hardware, and autonomous systems. Currently at AIFORCE developing
-      pre-research prototypes for next-generation Ag-Robotics platforms. Proficient in ROS,
-      embedded systems, and rapid prototyping. Passionate about bridging the gap between
-      cutting-edge research and real-world deployment in the field.
+      I am a robotics researcher currently at <strong style="color:var(--accent);">AiForceTech</strong> in Beijing,
+      where I work on embodied AI for agricultural robotics. Before that, I spent a year at
+      <strong style="color:var(--accent);">WAVELETCH</strong> designing wearable neural interfaces,
+      and two years as an undergraduate researcher at the <strong style="color:var(--accent);">NCUT IFR Robotics Lab</strong>.
+    </p>
+    <p class="about-text" style="margin-top:12px;">
+      I believe that meaningful progress in robotics comes from closing the loop between
+      simulation and the physical world. My work spans the full stack&mdash;from
+      <a href="#">building simulation environments</a> and <a href="#">collecting real-world sensor datasets</a>,
+      to designing and deploying <a href="#">wearable hardware</a> and <a href="#">autonomous field robots</a>.
+      I am particularly drawn to problems where sim-to-real transfer, sensor fusion, and
+      hardware-software co-design intersect.
+    </p>
+    <p class="about-text" style="margin-top:12px;">
+      I share what I learn along the way&mdash;my <a href="#">technical blog posts</a> on Isaac Sim,
+      LeRobot, and embodied AI have been read by thousands of fellow engineers and researchers.
+      I am always open to collaboration, new ideas, and opportunities to build things that
+      move and sense the real world.
     </p>
   </section>
 
@@ -173,16 +210,10 @@
         <div class="item-period">2026.1 – Present</div>
       </div>
       <p class="item-desc">
-        Agricultural robotics pre-research. Designing and prototyping autonomous
-        navigation and manipulation systems for field robots.
+        Embodied AI for agriculture. Building a blueberry-picking robot prototype
+        and its simulation environment with benchmark pipelines in Isaac Sim.
       </p>
-      <ul class="item-desc" style="list-style:disc;padding-left:16px;margin-top:4px;">
-        <li>Developed ROS2-based perception pipeline for crop-row detection using RGB-D cameras</li>
-        <li>Built Gazebo simulation environments for testing autonomous navigation algorithms</li>
-        <li>Integrated GPS-RTK and IMU sensors for precision field localization</li>
-        <li>Collaborated with mechanical team on sensor mounting and weatherproof enclosures</li>
-      </ul>
-      <div class="tags"><span class="tag">ROS2</span><span class="tag">Gazebo</span><span class="tag">Computer Vision</span><span class="tag">Sensor Fusion</span></div>
+      <div class="tags"><span class="tag">Isaac Sim</span><span class="tag">Linux</span><span class="tag">Computer Vision</span><span class="tag">Python</span></div>
     </div>
 
     <div class="item">
@@ -196,13 +227,7 @@
       <p class="item-desc">
         Designed and iterated on wearable EMG sensing hardware for gesture recognition applications.
       </p>
-      <ul class="item-desc" style="list-style:disc;padding-left:16px;margin-top:4px;">
-        <li>Designed 3D-printed wristband enclosure with integrated dry-electrode EMG sensors</li>
-        <li>Conducted signal quality comparisons across electrode materials and placement configurations</li>
-        <li>Reduced form factor by 30% while maintaining 8-channel signal acquisition</li>
-        <li>Created CAD models (SolidWorks) and managed prototyping with external fabrication vendors</li>
-      </ul>
-      <div class="tags"><span class="tag">EMG</span><span class="tag">CAD</span><span class="tag">3D Printing</span><span class="tag">Signal Processing</span></div>
+      <div class="tags"><span class="tag">EMG</span><span class="tag">Fusion 360</span></div>
     </div>
 
     <div class="item">
@@ -217,13 +242,7 @@
         Undergraduate research in the Intelligent Field Robotics lab. Focused on SLAM
         and autonomous navigation for mobile robots in unstructured environments.
       </p>
-      <ul class="item-desc" style="list-style:disc;padding-left:16px;margin-top:4px;">
-        <li>Implemented EKF-SLAM on a differential-drive mobile robot platform using LiDAR and wheel odometry</li>
-        <li>Benchmarked path planning algorithms (A*, RRT*, DWA) in simulated and real outdoor environments</li>
-        <li>Built a data-collection cart with stereo cameras and IMU for multi-sensor SLAM dataset creation</li>
-        <li>Co-authored a lab technical report on sensor fusion strategies for GNSS-denied navigation</li>
-      </ul>
-      <div class="tags"><span class="tag">SLAM</span><span class="tag">ROS</span><span class="tag">LiDAR</span><span class="tag">Python</span><span class="tag">C++</span></div>
+      <div class="tags"><span class="tag">SLAM</span><span class="tag">ROS</span><span class="tag">LiDAR</span><span class="tag">Python</span>
     </div>
   </section>
 
@@ -239,21 +258,21 @@
     -->
 
     <div class="project-card">
-      <div class="pj-title">Autonomous Crop-Row Following Robot</div>
-      <div class="pj-meta">2024.3 – 2024.9 &middot; Robotics &middot; Team of 3</div>
+      <div class="pj-title">High-Fidelity Agricultural Scene Simulation via 3DGS &amp; Isaac Sim/Lab</div>
+      <div class="pj-meta">Autonomous Simulation Engineer &middot; Graduate Research</div>
       <p class="pj-desc">
-        Built a wheeled robot that autonomously navigates crop rows using a monocular camera
-        and lightweight CNN-based segmentation. Deployed and tested in a greenhouse environment
-        with real lettuce crops. Achieved 92% row-following accuracy over 100m test runs.
+        <strong style="color:var(--accent);">3DGS-to-USD Pipeline:</strong> Built LiDAR acquisition protocol and trained 3D Gaussian Splatting models for agricultural scenes; developed automated PLY-to-USD conversion with spatial filtering, density pruning, and radiance refinement for real-time rendering in Isaac Sim<br>
+        <strong style="color:var(--accent);">Robot Kinematics &amp; Compliant Gripper:</strong> Full CAD-to-USD conversion of robotic manipulation platform with joint physics, inertia matrices, and flexible-gripper compliance parameters for soft-contact harvesting dynamics<br>
+        <strong style="color:var(--accent);">Physics Interaction &amp; PBR:</strong> Implemented real-time responsive manipulation of individual blueberry fruits under contact forces; parameterized PBR lighting, dynamic shaders, and material physics (friction, restitution, mass density) to minimize Sim-to-Real gap<br>
+        <strong style="color:var(--accent);">Collision Mesh Generation:</strong> Built automated Open3D pipeline for Poisson surface reconstruction and mesh simplification from raw 3DGS point clouds, producing watertight low-poly collision geometries for GPU simulation
       </p>
-      <div class="tags"><span class="tag">ROS Noetic</span><span class="tag">PyTorch</span><span class="tag">OpenCV</span><span class="tag">Jetson Nano</span></div>
+      <div class="tags"><span class="tag">Isaac Sim</span><span class="tag">Isaac Lab</span><span class="tag">3D Gaussian Splatting</span><span class="tag">Open3D</span><span class="tag">USD</span><span class="tag">Python</span></div>
       <div class="pj-links">
-        <a href="https://github.com/Jacob-Gabot/crop-row-nav" target="_blank"><i class="fa-brands fa-github"></i>Code</a>
-        <a href="#"><i class="fa-solid fa-file-pdf"></i>Report</a>
+        <!-- <a href="#" target="_blank"><i class="fa-brands fa-github"></i>Code</a> -->
+        <!-- <a href="#"><i class="fa-solid fa-file-pdf"></i>Report</a> -->
       </div>
-      <div class="media-grid">
-        <!-- <img src="media/crop-robot.jpg" alt="Robot in greenhouse" onclick="openLightbox(this.src, this.alt)"> -->
-        <!-- <video src="media/crop-nav-demo.mp4" controls preload="metadata" poster="media/crop-thumb.jpg"></video> -->
+      <div class="project-media">
+        <video src="media/Video/sim_blb_h264.mp4" controls preload="metadata" type="video/mp4" style="width:100%;border-radius:8px;display:block;"></video>
       </div>
     </div>
 
@@ -261,7 +280,10 @@
       <div class="pj-title">8-Channel EMG Wearable Wristband Structural Design</div>
       <div class="pj-meta">Structural &amp; Wearable Engineering &middot; Hardware Intern</div>
       <p class="pj-desc">
-        Engineered an 8-channel EMG wristband enclosure in Fusion 360, co-optimizing internal spatial packaging and PCB layout with hardware engineers. Developed custom structural components, managed FDM additive manufacturing supply chains, and qualified non-standard mechanical hardware for reliability. Led hands-on assembly, structural tolerance tuning, and mechanical validation, while supporting algorithm teams during sEMG data acquisition. Authored technical blueprints, CAD patent drawings, and video SOPs for DFM/DFA handoffs—enabling successful delivery of 200+ C-end units and 1 utility model patent (pending).
+        <strong style="color:var(--accent);">Mechanical Design:</strong> Engineered 8-channel EMG wristband enclosure in Fusion 360, co-optimized with PCB layout<br>
+        <strong style="color:var(--accent);">Prototyping &amp; DFM:</strong> Managed FDM supply chain, tolerance tuning, and mechanical validation<br>
+        <strong style="color:var(--accent);">Cross-functional:</strong> Supported algorithm teams during sEMG data acquisition and authored video SOPs<br>
+        <strong style="color:var(--accent);">Delivery:</strong> 200+ C-end units shipped; 1 utility model patent (pending)
       </p>
       <div class="tags">
         <span class="tag">Fusion 360</span>
@@ -273,55 +295,35 @@
       <div class="pj-links">
         <!-- <a href="#" target="_blank"><i class="fa-solid fa-file-pdf"></i>Documentation</a> -->
       </div>
-      <div class="media-grid">
-        <!-- <img src="media/emg-wristband.jpg" alt="EMG Wristband Prototype" onclick="openLightbox(this.src, this.alt)"> -->
-        <!-- <img src="media/emg-cad.jpg" alt="CAD Model Exploded View" onclick="openLightbox(this.src, this.alt)"> -->
+      <div class="project-media">
+        <div style="width:100%;aspect-ratio:16/9;background:var(--card);border-radius:8px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:0.85rem;padding:40px 0;">
+          <i class="fa-solid fa-image" style="margin-right:6px;"></i>Add image or video
+        </div>
       </div>
     </div>
 
     <div class="project-card">
-      <div class="pj-title">Multi-Sensor SLAM Data Collection Platform</div>
-      <div class="pj-meta">2023.12 – 2024.5 &middot; Research Tool &middot; Team of 2</div>
+      <div class="pj-title">12-DoF Quadruped Robot &amp; Wheeled-Bipedal Platform R&amp;D</div>
+      <div class="pj-meta">Robotics R&amp;D Engineer &middot; IFR Robotics Lab</div>
       <p class="pj-desc">
-        Built a portable sensor rig (stereo camera + LiDAR + IMU + RTK-GPS) on a push-cart
-        for collecting ground-truth SLAM datasets in outdoor environments. Recorded 15+ km
-        of data across campus. Used for benchmarking ORB-SLAM3, VINS-Fusion, and LIO-SAM.
+        <strong style="color:var(--accent);">12-DoF Quadruped &amp; 3-Axis Gimbal:</strong> Collaborative CAD modeling in Fusion 360 for a 12-DoF quadruped robot and 3-axis UAV stabilizing gimbal; conducted FEA for structural integrity and lightweight topology optimization, validated in national robotics competitions<br>
+        <strong style="color:var(--accent);">Wheeled-Bipedal Robot:</strong> Spearheaded end-to-end structural architecture, chassis design, and physical fabrication of a wheeled-bipedal prototype; managed internal spatial packaging, electromechanical integration, and wire harness routing<br>
+        <strong style="color:var(--accent);">Hardware Prototyping:</strong> Proficient with soldering stations, digital multimeters, oscilloscopes, and foundational EDA tools for electronics assembly and troubleshooting<br>
+        <strong style="color:var(--accent);">Documentation &amp; Knowledge Base:</strong> Authored standardized SOPs for FDM additive manufacturing and CNC milling via Typora and Lark, building core technical assets for the lab's knowledge base
       </p>
-      <div class="tags"><span class="tag">SLAM</span><span class="tag">ROS</span><span class="tag">Kalibr</span><span class="tag">Python</span></div>
+      <div class="tags"><span class="tag">Fusion 360</span><span class="tag">FEA</span><span class="tag">Quadruped</span><span class="tag">Gimbal</span><span class="tag">FDM</span><span class="tag">CNC</span></div>
       <div class="pj-links">
-        <a href="https://github.com/Jacob-Gabot/slam-datacollect" target="_blank"><i class="fa-brands fa-github"></i>Code &amp; Dataset</a>
+        <!-- <a href="#" target="_blank"><i class="fa-brands fa-github"></i>Code</a> -->
       </div>
-      <div class="media-grid">
-        <!-- <img src="media/slam-cart.jpg" alt="Data collection cart" onclick="openLightbox(this.src, this.alt)"> -->
-        <!-- <img src="media/slam-trajectory.jpg" alt="SLAM trajectory plot" onclick="openLightbox(this.src, this.alt)"> -->
+      <div class="project-media">
+        <div style="width:100%;aspect-ratio:16/9;background:var(--card);border-radius:8px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:0.85rem;padding:40px 0;">
+          <i class="fa-solid fa-image" style="margin-right:6px;"></i>Add image or video
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ═══════════ PUBLICATIONS ═══════════ -->
-  <!--
-  <section>
-    <div class="section-title">Publications</div>
-
-    <div class="pub-item">
-      <div class="pub-title">A Lightweight Monocular Vision Pipeline for Crop-Row Following in Greenhouse Environments</div>
-      <div class="pub-meta">Guo J., Li X., Wang Y. &middot; IEEE/RSJ IROS 2024 (Workshop on Agricultural Robotics)</div>
-      <div class="pub-links">
-        <a href="#" target="_blank"><i class="fa-solid fa-link"></i>DOI</a>
-        <a href="media/crop-row-paper.pdf" target="_blank"><i class="fa-solid fa-file-pdf"></i>PDF</a>
-        <a href="https://github.com/Jacob-Gabot/crop-row-nav" target="_blank"><i class="fa-solid fa-code"></i>Code</a>
-      </div>
-    </div>
-
-    <div class="pub-item">
-      <div class="pub-title">Sensor Fusion Strategies for GNSS-Denied Mobile Robot Navigation: A Comparative Study</div>
-      <div class="pub-meta">Guo J., Zhang H. &middot; IFR Lab Technical Report, 2025</div>
-      <div class="pub-links">
-        <a href="media/sensor-fusion-techreport.pdf" target="_blank"><i class="fa-solid fa-file-pdf"></i>PDF</a>
-      </div>
-    </div>
-  </section>
-  -->
 
   <!-- ═══════════ GITHUB REPOSITORIES ═══════════ -->
   <section>
@@ -350,6 +352,75 @@
       </div>
 
     </div>
+  </section>
+
+  <!-- ═══════════ BLOG ═══════════ -->
+  <section>
+    <div class="section-title">Blog</div>
+
+    <div class="project-card">
+      <div class="project-row">
+        <div class="project-media">
+          <img src="media/Image/blog3_cover.gif" alt="LeRobot Guide Cover" onclick="openLightbox(this.src, this.alt)">
+        </div>
+        <div class="project-content">
+          <div class="pj-title">Embodied AI in Practice: End-to-End LeRobot Deployment, Training &amp; Inference on Ubuntu 22.04</div>
+          <div class="pj-meta">2026-03-09 &middot; Embodied AI &middot; LeRobot</div>
+          <p class="pj-desc">
+            A comprehensive walkthrough of the full LeRobot pipeline—from hardware assembly and environment setup
+            to data collection, model training, and real-world inference. Written as a technical memo to help others
+            avoid the same configuration pitfalls and turn debugging time into productive research.
+          </p>
+          <div class="tags"><span class="tag">LeRobot</span><span class="tag">Imitation Learning</span><span class="tag">Ubuntu 22.04</span><span class="tag">Manipulator</span></div>
+          <div class="pj-links">
+            <a href="https://blog.csdn.net/2302_79234140/article/details/157934463" target="_blank"><i class="fa-solid fa-link"></i>Read on CSDN</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-row">
+        <div class="project-media">
+          <img src="media/Image/blog1_2cover.png" alt="Isaac Lab Guide Cover" onclick="openLightbox(this.src, this.alt)">
+        </div>
+        <div class="project-content">
+          <div class="pj-title">Isaac Sim 5.1 Series (Part 2): Isaac Lab Environment Setup — Complete Guide &amp; Troubleshooting</div>
+          <div class="pj-meta">2025-12-24 &middot; Simulation &middot; Isaac Lab</div>
+          <p class="pj-desc">
+            A step-by-step record of configuring Isaac Lab on Windows and Ubuntu 22.04. Covers conda environment
+            activation, pip installation, Windows path-length limits, torchaudio and skrl dependency fixes,
+            VSCode configuration, and running the first RL training job.
+          </p>
+          <div class="tags"><span class="tag">Isaac Sim 5.1</span><span class="tag">Isaac Lab</span><span class="tag">RL</span><span class="tag">Windows</span><span class="tag">Ubuntu</span></div>
+          <div class="pj-links">
+            <a href="https://blog.csdn.net/2302_79234140/article/details/155950882" target="_blank"><i class="fa-solid fa-link"></i>Read on CSDN</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-row">
+        <div class="project-media">
+          <img src="media/Image/blog1_2cover.png" alt="Isaac Assets Guide Cover" onclick="openLightbox(this.src, this.alt)">
+        </div>
+        <div class="project-content">
+          <div class="pj-title">Isaac Sim 5.1 Series (Part 1): Local Assets Configuration — Bypassing Omniverse Launcher</div>
+          <div class="pj-meta">2025-12-15 &middot; Simulation &middot; Asset Setup</div>
+          <p class="pj-desc">
+            With Omniverse Launcher officially deprecated, this guide documents how to manually download
+            Isaac Sim asset packs and configure local paths. Covers multiple approaches including official
+            docs, launcher tweaks, and JSON config edits to get you into robot simulation and RL faster.
+          </p>
+          <div class="tags"><span class="tag">Isaac Sim 5.1</span><span class="tag">Assets</span><span class="tag">URDF</span><span class="tag">Fusion 360</span></div>
+          <div class="pj-links">
+            <a href="https://blog.csdn.net/2302_79234140/article/details/155934576" target="_blank"><i class="fa-solid fa-link"></i>Read on CSDN</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </section>
 
   <!-- ═══════════ COMPETITIONS & AWARDS ═══════════ -->
